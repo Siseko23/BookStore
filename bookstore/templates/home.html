@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+<div class="container text-center">
+    <div class="row" style="margin: 10px;">
+      <div class="col" style="margin: 3px;">
+        <div class="list-group" id="right1">
+            <a href="{{ url_for('admin.department_books', department_name='Accounting') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-calculator" aria-hidden="true"></i>
+                    <span class="link-name">ACCOUNTING</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Information Technology') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-laptop-code" aria-hidden="true"></i>
+                    <span class="link-name">INFORMATION TECHNOLOGY</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Engineering') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                    <span class="link-name">ENGINEERING</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Hospitality') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-concierge-bell" aria-hidden="true"></i>
+                    <span class="link-name">HOSPITALITY</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Nursing') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-user-nurse" aria-hidden="true"></i>
+                    <span class="link-name">NURSING</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Education') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-book-open" aria-hidden="true"></i>
+                    <span class="link-name">EDUCATION</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Agriculture') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-seedling" aria-hidden="true"></i>
+                    <span class="link-name">AGRICULTURE</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Information Management') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <span class="link-name">INFORMATION MANAGEMENT</span>
+                </a>
+                <a href="{{ url_for('admin.department_books', department_name='Food Science') }}" class="list-group-item list-group-item-action">
+                    <i class="fa fa-utensils" aria-hidden="true"></i>
+                    <span class="link-name">FOOD SCIENCE</span>
+                </a>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-7" style="margin: 3px;">
+        <img src="../static/images/center.gif" alt="" style="width: 600px; height: 365px; border-radius: 10px;">
+      </div>
+      <div class="col-md-2">
+        <div class="row" style="background-color: white; border-radius: 10px;">
+
+            <div class="row" style="display: flex; margin-top: 5px;">
+                <div class="col">
+                    <img src="../static/images/help.png" alt="" style="width: 30px; height: 30px; margin-left: -30px;">
+                </div>
+                <div class="col">
+                    <h6 style="font-family:'Times New Roman', Times, serif; font-size: 12px; margin-left: -40px; font-weight: 600;">DUT4LIFE</h6>
+                    <p style="font-size: small; color: gray; margin-left: -30px; margin-top: -10px;">Customer care</p>
+                </div>
+            </div>
+
+            <div class="row" style="display: flex; margin-top: 5px;">
+                <div class="col">
+                    <img src="../static/images/return.png" alt="" style="width: 30px; height: 30px; margin-left: -30px;">
+                </div>
+                <div class="col">
+                    <h6 style="font-family:'Times New Roman', Times, serif; font-size: 12px; margin-left: -40px; font-weight: 600;">EASY PICK UP</h6>
+                    <p style="font-size: small; color: gray; margin-left: -30px; margin-top: -10px;">BUY ONLINE</p>
+                </div>
+            </div>
+
+            <div class="row" style="display: flex; margin-top: 5px;">
+                <div class="col">
+                    <img src="../static/images/payment.png" alt="" style="width: 30px; height: 30px; margin-left: -30px;">
+                </div>
+                <div class="col">
+                    <h6 style="font-family:'Times New Roman', Times, serif; font-size: 12px; margin-left: -40px; font-weight: 600;">SELL ON MegaRXL Store</h6>
+                    <p style="font-size: small; color: gray; margin-left: -30px; margin-top: -10px;"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 12px;">
+            <div class="col">
+                <img src="../static/images/right2.gif" alt="" class="right2">
+            </div>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <div class="row" style="margin: 8px;">
+        <div class="col" style="display: flex; background-color: white; border-radius: 10px; padding: 7px; margin: 5px;">
+            <img src="../static/images/techweek.png" alt="" style="width: 30px; height: 30px;">
+            <h6 style="margin: 4px">Tech Week</h6>
+        </div>
+        <div class="col" style="display: flex; background-color: white; border-radius: 10px; padding: 7px; margin: 5px;">
+            <img src="../static/images/FreeDelivery.png" alt="" style="width: 30px; height: 30px;">
+            <h6 style="margin: 4px">PICK UP YOUR ITEM</h6>
+        </div>
+        <div class="col" style="display: flex; background-color: white; border-radius: 10px; padding: 7px; margin: 5px;">
+            <img src="../static/images/food.png" alt="" style="width: 30px; height: 30px;">
+            <h6 style="margin: 4px">Library Bookstore</h6>
+        </div>
+        <div class="col" style="display: flex; background-color: white; border-radius: 10px; padding: 7px; margin: 5px;">
+            <img src="../static/images/airtime.png" alt="" style="width: 30px; height: 30px;">
+            <h6 style="margin: 4px">Easy Instructions</h6>
+        </div>
+    </div>
+</div>
+<div class="container text-center">
+    <h2>Books in {{ department }}</h2>
+    <div class="row" style="margin: 8px; background-color: rgb(219, 218, 218);" id="column">
+        {% for item in items %}
+        <div class="col" style="background-color: white; padding: 10px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #FFA07A;">
+
+            <img src="{{ url_for('admin.get_image', filename=item.product_picture.split('/')[-1]) }}" alt="" style="height: 202px; width: 180px; border-radius: 10px; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
+
+            <!-- Product Name centered along with the other details -->
+            <div class="row" style="margin-top: 5px; text-align: center;">
+                <h6 style="color: black; font-weight: bold; font-size: 16px; margin: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{ item.product_name }}</h6>
+            </div>
+
+            <!-- Product Price and Previous Price -->
+            <div class="row" style="margin-top: 10px; text-align: center;">
+                <div class="col">
+                    <h5 style="font-weight: 600; color: black; font-family: 'Times New Roman', Times, serif;">Zar {{ item.current_price }}</h5>
+                    {% if item.previous_price %}
+                    <strike><p style="color: black; font-weight: bold;">Zar {{ item.previous_price }}</p></strike>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Add to Cart button -->
+            <div class="row" style="margin-top: 10px; text-align: center;">
+                <div class="col">
+
+
+                     <a href="/add_review/{{ item.id }}" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 5px 10px;">Review</a>
+                    <a href="/add-to-cart/{{ item.id }}" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 5px 10px;">Add</a>
+                    <a href="/add_to_wishlist/{{ item.id }}" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 5px 10px;">wishlist</a>
+                </div>
+            </div>
+
+            <!-- Stock Information -->
+            <div class="row" style="margin-top: 10px; text-align: center;">
+                <p style="color: black; font-weight: bold; font-size: 12px;">{{ item.in_stock }} Items Left</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

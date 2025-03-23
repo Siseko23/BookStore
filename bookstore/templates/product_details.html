@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.product_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            color: #333;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .review {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .review p {
+            margin: 8px 0;
+        }
+
+        .review .rating {
+            font-weight: bold;
+            color: #f39c12;
+        }
+
+        .review .customer {
+            font-style: italic;
+            color: #555;
+        }
+
+        .add-review-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .add-review-link a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .add-review-link a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>{{ product.product_name }}</h1>
+    <p class="product-price">Zar {{ product.current_price }}</p>
+
+
+    <h3>Reviews:</h3>
+
+    {% for review in product.reviews %}
+        <div class="review">
+            <p class="rating">Rating: {{ review.rating }} / 5</p>
+            <p>{{ review.review_text }}</p>
+            <p class="customer">By: {{ review.customer.username }} on {{ review.date_posted }}</p>
+        </div>
+    {% endfor %}
+
+    <!-- Link to add a review -->
+    <div class="add-review-link">
+        <a href="{{ url_for('views.add_review', product_id=product.id) }}">Add Your Review</a>
+    </div>
+</div>
+
+</body>
+</html>

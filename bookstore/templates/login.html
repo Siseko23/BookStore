@@ -1,0 +1,32 @@
+{% extends 'forms.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %}
+
+<section class="base" id="base-signup">
+    <div class="base-content">
+        <div class="form">
+            <h3>Login to start <br> Shopping</h3>
+            <br/>
+            <br/>
+
+            <hr class="first">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div class="email"><h4><strong>Email Address</strong></h4>{{ form.email }} <hr></div>
+                <br/>
+
+                <div class="password"><h4><strong>Password</strong></h4>{{ form.password }} <hr></div>
+
+                <div class="buttons">
+                    <a href="/sign-up"><strong>Sign Up</strong></a>
+                    {{ form.submit() }}
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

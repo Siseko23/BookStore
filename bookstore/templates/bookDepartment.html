@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ department }}{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <h2>Books in {{ department }}</h2>
+    <div class="row" style="margin: 8px; background-color: rgb(219, 218, 218);" id="column">
+        {% for item in items %}
+        <div class="col-md-4" style="background-color: white; padding: 10px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #FFA07A;">
+            <img src="{{ url_for('admin.get_image', filename=item.product_picture.split('/')[-1]) }}" alt="" style="height: 202px; width: 180px; border-radius: 10px; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
+
+            <!-- Product Name -->
+            <div class="row" style="margin-top: 5px; text-align: center;">
+                <h6 style="color: black; font-weight: bold; font-size: 16px; margin: 0; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{ item.product_name }}</h6>
+            </div>
+
+            <!-- Product Price and Previous Price -->
+            <div class="row" style="margin-top: 10px; text-align: center;">
+                <div class="col">
+                    <h5 style="font-weight: 600; color: black; font-family: 'Times New Roman', Times, serif;">Zar {{ item.current_price }}</h5>
+                    {% if item.previous_price %}
+                    <strike><p style="color: black; font-weight: bold;">Zar {{ item.previous_price }}</p></strike>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Add to Cart button -->
+            <div class="row" style="margin-top: 10px; text-align: center;">
+                <div class="col">
+                    <a href="/add-to-cart/{{ item.id }}" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 5px 10px;">Add to Cart</a>
+                </div>
+            </div>
+
+            <!-- Stock Information -->
+            <div class="row" style="margin-top: 10px; text-align: center;">
+                <p style="color: black; font-weight: bold; font-size: 12px;">{{ item.in_stock }} Items Left</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

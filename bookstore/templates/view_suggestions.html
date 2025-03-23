@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} View Book Suggestions {% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="text-center mb-5" style="color: white;">Book Suggestions</h1>
+    {% if suggestions %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Date Suggested</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for suggestion in suggestions %}
+                <tr>
+                    <td>{{ suggestion.customer_name }}</td>
+                    <td>{{ suggestion.customer_email }}</td>
+                    <td>{{ suggestion.book_title }}</td>
+
+                    <td>{{ suggestion.suggestion_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No suggestions have been submitted yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
