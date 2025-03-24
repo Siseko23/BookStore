@@ -5,25 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a725dd68-d46a-4d00-9252-de5b224caf03" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/BookStore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BookStore.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/orders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/templates/update_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/templates/update_item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookstore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookstore/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/database.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
