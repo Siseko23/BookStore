@@ -6,10 +6,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Customer(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
-    username = db.Column(db.String(100))
-    password_hash = db.Column(db.String(150))
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    username = db.Column(db.String(100), nullable=False)
+    department = db.Column(db.String(100), nullable=False)  # ✅ Add department field
+    password_hash = db.Column(db.String(150), nullable=False)
     date_joined = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     cart_item = db.relationship('Cart', backref=db.backref('customer', lazy=True))
     orders = db.relationship('Order', backref=db.backref('customer', lazy=True))
@@ -67,14 +74,31 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    status = db.Column(db.String(100), nullable=False)
+    status = db.Column(db.String(100), nullable=False, default="Pending")
     payment_id = db.Column(db.String(1000), nullable=False)
+    pickup_details = db.Column(db.String(255), nullable=True,
+                               default="Pick up details will be provided once processed.")
 
     customer_link = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     product_link = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
 
-    def __str__(self):
-        return f'<Order {self.id}>'
+    def update_status(self, new_status):
+        """Update order status and adjust pickup details accordingly."""
+        self.status = new_status
+        if new_status == "Paid":
+            self.pickup_details = "Your order has been confirmed. Please wait for further updates."
+        elif new_status == "Delivered":
+            self.pickup_details = "Please fetch your item at the library along with your student card."
+        elif new_status == "Accepted":
+            self.pickup_details = "Your order has been Accepted. Please wait for further updates."
+        elif new_status == "Out for delivery":
+            self.pickup_details = "Your order is now Out for delivery. Please wait for further updates."
+        else:
+            self.pickup_details = "Your order has been Canceled. Please wait for further communications"
+
+
+
+        db.session.commit()
 
 
 class Review(db.Model):

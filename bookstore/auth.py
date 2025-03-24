@@ -1,45 +1,54 @@
-from flask import Blueprint, render_template, flash, redirect
-from .forms import LoginForm, SignUpForm, PasswordChangeForm
+from flask import Blueprint, render_template, flash, redirect, url_for
+from .forms import SignUpForm, LoginForm, PasswordChangeForm  # ✅ Add LoginForm here
 from .models import Customer
 from . import db
 from flask_login import login_user, login_required, logout_user
 
 
-auth = Blueprint('auth', __name__)
-
+auth = Blueprint('auth', __name__)  # ✅ Define Blueprint
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     form = SignUpForm()
+
     if form.validate_on_submit():
         email = form.email.data
-        username = form.username.data
-        password1 = form.password1.data
-        password2 = form.password2.data
 
-        if password1 == password2:
-            new_customer = Customer()
-            new_customer.email = email
-            new_customer.username = username
-            new_customer.password = password2
+        # ✅ Validate DUT email
+        if not (email.endswith("@dut4life.ac.za") or email.endswith("@dut.ac.za")):
+            flash("Only DUT students can sign up with @dut4life.ac.za or @dut.ac.za emails.", "danger")
+            return redirect(url_for('auth.sign_up'))
 
-            try:
-                db.session.add(new_customer)
-                db.session.commit()
-                flash('Account Created Successfully, You can now Login')
-                return redirect('/login')
-            except Exception as e:
-                print(e)
-                flash('Account Not Created!!, Email already exists')
+        # ✅ Check if email is already registered
+        existing_user = Customer.query.filter_by(email=email).first()
+        if existing_user:
+            flash("Email already registered. Please log in.", "warning")
+            return redirect(url_for('auth.sign_up'))
 
-            form.email.data = ''
-            form.username.data = ''
-            form.password1.data = ''
-            form.password2.data = ''
+        # ✅ Save user to database
+        try:
+            new_user = Customer(
+                email=email,
+                username=form.username.data,
+                department=form.department.data
+            )
+            new_user.set_password(form.password1.data)  # Ensure set_password is correctly defined
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash("Account created successfully! Please log in.", "success")
+            return redirect(url_for('auth.login'))
+        except Exception as e:
+            db.session.rollback()  # Rollback if error occurs
+            flash(f"Error creating account: {str(e)}", "danger")
+
+    else:
+        # Debug form errors
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"{field}: {error}", "danger")
 
     return render_template('signup.html', form=form)
-
-
 
 
 @auth.route('/login', methods=['GET', 'POST'])

@@ -8,46 +8,52 @@
     <div class="row" style="margin: 10px;">
       <div class="col" style="margin: 3px;">
         <div class="list-group" id="right1">
-            <a href="{{ url_for('admin.department_books', department_name='Accounting') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-calculator" aria-hidden="true"></i>
-                    <span class="link-name">ACCOUNTING</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Information Technology') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-laptop-code" aria-hidden="true"></i>
-                    <span class="link-name">INFORMATION TECHNOLOGY</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Engineering') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-cogs" aria-hidden="true"></i>
-                    <span class="link-name">ENGINEERING</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Hospitality') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-concierge-bell" aria-hidden="true"></i>
-                    <span class="link-name">HOSPITALITY</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Nursing') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-user-nurse" aria-hidden="true"></i>
-                    <span class="link-name">NURSING</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Education') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-book-open" aria-hidden="true"></i>
-                    <span class="link-name">EDUCATION</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Agriculture') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-seedling" aria-hidden="true"></i>
-                    <span class="link-name">AGRICULTURE</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Information Management') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-database" aria-hidden="true"></i>
-                    <span class="link-name">INFORMATION MANAGEMENT</span>
-                </a>
-                <a href="{{ url_for('admin.department_books', department_name='Food Science') }}" class="list-group-item list-group-item-action">
-                    <i class="fa fa-utensils" aria-hidden="true"></i>
-                    <span class="link-name">FOOD SCIENCE</span>
-                </a>
+    <a href="{{ url_for('admin.department_books', department_name='Accounting') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-calculator" aria-hidden="true"></i>
+        <span class="link-name">ACCOUNTING</span>
+    </a>
 
-        </div>
-      </div>
+    <a href="{{ url_for('admin.department_books', department_name='Information Technology') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-laptop-code" aria-hidden="true"></i>
+        <span class="link-name">INFORMATION TECHNOLOGY</span>
+    </a>
 
+    <a href="{{ url_for('admin.department_books', department_name='Engineering') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-cogs" aria-hidden="true"></i>
+        <span class="link-name">ENGINEERING</span>
+    </a>
+
+    <a href="{{ url_for('admin.department_books', department_name='Hospitality') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-concierge-bell" aria-hidden="true"></i>
+        <span class="link-name">HOSPITALITY</span>
+    </a>
+
+    <a href="{{ url_for('admin.department_books', department_name='Nursing') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-user-nurse" aria-hidden="true"></i>
+        <span class="link-name">NURSING</span>
+    </a>
+
+    <a href="{{ url_for('admin.department_books', department_name='Education') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-book-open" aria-hidden="true"></i>
+        <span class="link-name">EDUCATION</span>
+    </a>
+
+    <a href="{{ url_for('admin.department_books', department_name='Agriculture') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-seedling" aria-hidden="true"></i>
+        <span class="link-name">AGRICULTURE</span>
+    </a>
+
+    <a href="{{ url_for('admin.department_books', department_name='Information Management') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-database" aria-hidden="true"></i>
+        <span class="link-name">INFORMATION MANAGEMENT</span>
+    </a>
+
+    <a href="{{ url_for('admin.department_books', department_name='Food Science') }}" class="list-group-item list-group-item-action">
+        <i class="fa fa-utensils" aria-hidden="true"></i>
+        <span class="link-name">FOOD SCIENCE</span>
+    </a>
+</div>
+</div>
 
       <div class="col-md-7" style="margin: 3px;">
         <img src="../static/images/center.gif" alt="" style="width: 600px; height: 365px; border-radius: 10px;">
@@ -116,7 +122,7 @@
     </div>
 </div>
 <div class="container text-center">
-    <h2>Books in {{ department }}</h2>
+    <h2>Recommendations in {{ department }}</h2>
     <div class="row" style="margin: 8px; background-color: rgb(219, 218, 218);" id="column">
         {% for item in items %}
         <div class="col" style="background-color: white; padding: 10px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #FFA07A;">

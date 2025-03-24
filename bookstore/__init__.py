@@ -7,16 +7,22 @@ import os
 db = SQLAlchemy()
 DB_NAME = "database.sqlite3"
 
+
 def create_database(app):
     with app.app_context():
         db.create_all()
     print("Database Created")
 
+
 def create_app():
     app = Flask(__name__)
-    app.config.from_object("config.Config")
 
+
+    app.config["SECRET_KEY"] = "your_secret_key_here"
+
+    app.config.from_object("config.Config")
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+
     db.init_app(app)
 
     stripe.api_key = app.config["STRIPE_SECRET_KEY"]  # Initialize Stripe
@@ -39,6 +45,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(admin, url_prefix="/")
 
+    # ✅ Now calling create_database will work
     create_database(app)
 
     return app

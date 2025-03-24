@@ -14,7 +14,7 @@ def get_image(filename):
 @admin.route('/add-shop-items', methods=['GET','POST'])
 @login_required
 def add_shop_items():
-    if current_user.email =="Admin@dut4life.ac.za":
+    if current_user.email =="admin@dut.ac.za":
         form = ShopItemsForm()
         if form.validate_on_submit():
             product_name = form.product_name.data
@@ -69,7 +69,7 @@ def add_shop_items():
 @admin.route('/shop-items', methods=['GET','POST'])
 @login_required
 def shop_items():
-    if current_user.email =="Admin@dut4life.ac.za":
+    if current_user.email =="admin@dut.ac.za":
         items = Product.query.order_by(Product.date_added).all()
         return render_template('shop_items.html', items=items)
 
@@ -78,60 +78,46 @@ def shop_items():
 @admin.route('/update-item/<int:item_id>', methods=['GET', 'POST'])
 @login_required
 def update_item(item_id):
-    if current_user.email == "Admin@dut4life.ac.za":
-        form = ShopItemsForm()
-
-        item_to_update = Product.query.get(item_id)
-
-        form.product_name.render_kw = {'placeholder': item_to_update.product_name}
-        form.previous_price.render_kw = {'placeholder': item_to_update.previous_price}
-        form.current_price.render_kw = {'placeholder': item_to_update.current_price}
-        form.in_stock.render_kw = {'placeholder': item_to_update.in_stock}
-        form.department.render_kw = {'placeholder': item_to_update.department}
-
-        form.flash_sale.render_kw = {'placeholder': item_to_update.flash_sale}
+    if current_user.email == "admin@dut.ac.za":
+        item_to_update = Product.query.get_or_404(item_id)
+        form = ShopItemsForm(obj=item_to_update)  # Pre-fill form with current item data
 
         if form.validate_on_submit():
-            product_name = form.product_name.data
-            current_price = form.current_price.data
-            previous_price = form.previous_price.data
-            in_stock = form.in_stock.data
-            department = form.department.data
+            # Update product details
+            item_to_update.product_name = form.product_name.data
+            item_to_update.current_price = form.current_price.data
+            item_to_update.previous_price = form.previous_price.data
+            item_to_update.in_stock = form.in_stock.data
+            item_to_update.department = form.department.data
+            item_to_update.flash_sale = form.flash_sale.data
 
-            flash_sale = form.flash_sale.data
-
-            file = form.product_picture.data
-
-            file_name = secure_filename(file.filename)
-            file_path = f'./media/{file_name}'
-
-            file.save(file_path)
+            # Handle product picture (only update if a new one is uploaded)
+            if form.product_picture.data:
+                file = form.product_picture.data
+                file_name = secure_filename(file.filename)
+                file_path = f'./media/{file_name}'
+                file.save(file_path)
+                item_to_update.product_picture = file_path
 
             try:
-                Product.query.filter_by(id=item_id).update(dict(product_name=product_name,
-                                                                current_price=current_price,
-                                                                previous_price=previous_price,
-                                                                in_stock=in_stock,
-
-                                                                flash_sale=flash_sale,
-                                                                product_picture=file_path))
-
                 db.session.commit()
-                flash(f'{product_name} updated Successfully')
-                print('Product Upadted')
+                flash(f'{item_to_update.product_name} updated successfully!', 'success')
+                print('Product updated')
                 return redirect('/shop-items')
             except Exception as e:
-                print('Product not Upated', e)
-                flash('Item Not Updated!!!')
+                print('Product not updated:', e)
+                flash('Item not updated!', 'danger')
+                db.session.rollback()
 
-        return render_template('update_item.html', form=form)
+        return render_template('update_item.html', form=form, item=item_to_update)
+
     return render_template('404.html')
 
 
 @admin.route('/delete-item/<int:item_id>', methods=['GET', 'POST'])
 @login_required
 def delete_item(item_id):
-    if current_user.email =="Admin@dut4life.ac.za":
+    if current_user.email =="admin@dut.ac.za":
         try:
             item_to_delete = Product.query.get(item_id)
             db.session.delete(item_to_delete)
@@ -149,7 +135,7 @@ def delete_item(item_id):
 @admin.route('/view-orders')
 @login_required
 def order_view():
-    if current_user.email.lower() == "admin@dut4life.ac.za":
+    if current_user.email.lower() == "admin@dut.ac.za":
 
         orders = Order.query.all()
         print("Orders in DB:", orders)  # Debugging
@@ -159,40 +145,36 @@ def order_view():
     return render_template('404.html')
 
 
-
-
-
-
-
 @admin.route('/update-order/<int:order_id>', methods=['GET', 'POST'])
 @login_required
 def update_order(order_id):
-    if current_user.email == 'Admin@dut4life.ac.za':
-        form = OrderForm()
-        order = Order.query.get(order_id)
+    # Ensure only admin can update orders
+    if current_user.email != 'admin@dut.ac.za':
+        flash("Unauthorized access!", "danger")
+        return redirect(url_for('views.home'))
 
-        if form.validate_on_submit():
-            status = form.order_status.data
-            order.status = status
+    form = OrderForm()
+    order = Order.query.get_or_404(order_id)
 
-            try:
-                db.session.commit()
-                flash(f'Order {order_id} Updated successfully')
-                return redirect('/view-orders')
-            except Exception as e:
-                print(e)
-                flash(f'Order {order_id} not updated')
-                return redirect('/view-orders')
+    if form.validate_on_submit():
+        new_status = form.order_status.data  # Get new status from the form
+        try:
+            order.update_status(new_status)  # Call the method to update status and pickup details
+            flash(f'Order {order_id} updated successfully!', "success")
+            return redirect(url_for('views.view_orders'))
+        except Exception as e:
+            print(f"Error updating order {order_id}: {e}")
+            db.session.rollback()
 
-        return render_template('order_update.html', form=form)
 
+    return render_template('order_update.html', form=form, order=order)
 
 
 
 @admin.route('/customers')
 @login_required
 def display_customers():
-    if current_user.email =="Admin@dut4life.ac.za":
+    if current_user.email =="admin@dut.ac.za":
         customers = Customer.query.all()
         return render_template('customers.html', customers=customers)
     return render_template('404.html')
@@ -201,7 +183,7 @@ def display_customers():
 @admin.route('/admin-page')
 @login_required
 def admin_page():
-    if current_user.email =="Admin@dut4life.ac.za":
+    if current_user.email =="admin@dut.ac.za":
         return render_template('admin.html')
     return render_template('404.html')
 
@@ -211,7 +193,7 @@ def admin_page():
 @admin.route('/department/<department_name>', methods=['GET'])
 @login_required
 def department_books(department_name):
-    if current_user.email == "admin@dut4life.ac.za":
+    if current_user.email == "admin@dut.ac.za":
         # Query the products in the selected department
         items = Product.query.filter_by(department=department_name).all()
         return render_template('bookDepartment.html', items=items, department=department_name)

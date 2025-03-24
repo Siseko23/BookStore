@@ -9,10 +9,17 @@ from . import db
 from flask import url_for
 
 
-
-
 views = Blueprint('views', __name__)
 
+
+@views.route('/cart')
+@login_required
+def show_cart():
+    cart_items = Cart.query.filter_by(customer_link=current_user.id).all()
+
+    total_amount = sum(item.product.current_price * item.quantity for item in cart_items)
+
+    return render_template('cart.html', cart=cart_items, total=total_amount)
 
 
 @views.route('/add-to-cart/<int:item_id>')
@@ -46,16 +53,6 @@ def add_to_cart(item_id):
 
     return redirect(request.referrer)
 
-
-@views.route('/cart')
-@login_required
-def show_cart():
-    cart = Cart.query.filter_by(customer_link=current_user.id).all()
-    amount = 0
-    for item in cart:
-        amount += item.product.current_price * item.quantity
-
-    return render_template('cart.html', cart=cart, amount=amount, total=amount)
 
 
 @views.route('/pluscart')
@@ -361,17 +358,22 @@ def department_books(department_name):
     return render_template('bookDepartment.html', items=items, department=department_name)
 
 
-
 @views.route('/')
 def home():
-    items = Product.query.filter_by(flash_sale=True).all()
-
-    # If the user is logged in, fetch the current cart
     if current_user.is_authenticated:
+        # Get the department of the logged-in user
+        user_department = current_user.department
+
+        # Fetch books that are on flash sale **and** belong to the student's department
+        items = Product.query.filter_by(flash_sale=True, department=user_department).all()
+
+        # Fetch the current user's cart items
         cart_items = Cart.query.filter_by(customer_link=current_user.id).all()
         cart_ids = [item.product_link for item in cart_items]
     else:
+        # Show all flash sale books if no user is logged in
+        items = Product.query.filter_by(flash_sale=True).all()
         cart_items = []
         cart_ids = []
 
-    return render_template('home.html', items=items, cart=cart_items, cart_ids=cart_ids)
+    return render_template('home.html', items=items, cart=cart_items, cart_ids=cart_ids, department=user_department if current_user.is_authenticated else "General")
